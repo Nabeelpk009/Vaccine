@@ -38,7 +38,7 @@ contract VaxiChain{
         uint min_temp;
         uint max_temp;
         uint doses;
-        string manufaturedDate;
+        string expdate;
         
     }
     
@@ -57,7 +57,7 @@ contract VaxiChain{
         string vaccine_id;
         string name;
         uint vails;
-        string expdate;
+        string manufaturedDate;
         uint manufactureId;
         string arrived_dateDistributor;
         uint distributorId;
@@ -115,9 +115,9 @@ contract VaxiChain{
         vaccineCenter[licenceNo] = VaccineCenter(licenceNo, name, phone, location);
     }
         
-    function AddBeneficiary(string memory name, uint age, string memory gender, string memory  AdharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center, bool vaccinated ) public{
+    function AddBeneficiary(string memory name, uint age, string memory gender, string memory  adharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center, bool vaccinated ) public{
         beneficiaryCount++;
-        beneficiary[AdharID] = Beneficiary(name, age, gender, AdharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
+        beneficiary[adharID] = Beneficiary(name, age, gender, adharID, doctorID, vaccinated_date,vaccine_center,vaccinated);
    }  
    
    function VaccineRegister(string memory vaccine_name) public
@@ -130,15 +130,15 @@ contract VaxiChain{
        doctor[licenseNo] = Doctor(licenseNo, name, phone);
    }
    
-   function ManuFacturedVaccine(string memory id, string memory name, uint vails, string memory exp_date, uint manufactureID, string memory arrived_date_distributor, uint distributor, string memory arrived_date_vaccine_center, uint vaccine_center )public
+   function ManuFacturedVaccine(string memory id, string memory name, uint vails, string memory manufaturedDate, uint manufactureID, string memory arrived_date_distributor, uint distributor, string memory arrived_date_vaccine_center, uint vaccine_center )public
    {
-       vaccine[id] = Vaccine(id, name, vails, exp_date, manufactureID, arrived_date_distributor, distributor,  arrived_date_vaccine_center, vaccine_center);
+       vaccine[id] = Vaccine(id, name, vails, manufaturedDate, manufactureID, arrived_date_distributor, distributor,  arrived_date_vaccine_center, vaccine_center);
        onDemand[name] = OnDemand(0);
    }
    
-   function AddRules(string memory id, uint min_temp, uint max_temp, uint doses, string memory manufaturedDate)public
+   function AddRules(string memory id, uint min_temp, uint max_temp, uint doses, string memory expdate)public
    {
-        rules[id] = Rules(id, min_temp, max_temp, doses, manufaturedDate);
+        rules[id] = Rules(id, min_temp, max_temp, doses, expdate);
    }
    
    function AddViolation(string memory id)public
@@ -164,12 +164,17 @@ contract VaxiChain{
        vaccine[id].vaccineCenterId = vaccine_center_id;
    }
 
-   function Vaccinated(string memory AdharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center) public
+   function Vaccinated(string memory adharID, uint doctorID, string memory vaccinated_date,  string memory vaccine_center,bool vaccinated) public
    {
-       beneficiary[AdharID].doctorID = doctorID;
-       beneficiary[AdharID].vaccinated_date = vaccinated_date;
-       beneficiary[AdharID].vaccine_center = vaccine_center;
-       beneficiary[AdharID].vaccinated = true;
+       beneficiary[adharID].doctorID = doctorID;
+       beneficiary[adharID].vaccinated_date = vaccinated_date;
+       beneficiary[adharID].vaccine_center = vaccine_center;
+       beneficiary[adharID].vaccinated = true;
+   }
+
+   function TrackVaccine(string memory vaccine_id) public view returns(string memory,string memory,uint,string memory,uint,string memory,uint,string memory,uint)
+   {
+       return(vaccine[vaccine_id].vaccine_id,vaccine[vaccine_id].name,vaccine[vaccine_id].vails,vaccine[vaccine_id].manufactureId,vaccine[vaccine_id].arrived_dateDistributor,vaccine[vaccine_id].distributorId,vaccine[vaccine_id].arrived_dateVaccineCenter,vaccine[vaccine_id].vaccineCenterId);
    }
     
    function tracking(string memory vaccine_id, uint temp)public
