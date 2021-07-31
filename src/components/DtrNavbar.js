@@ -21,6 +21,16 @@ function DtrNavbar(props) {
               </li>
               <li
                 class={`nav-item  ${
+                  props.location.pathname === "/TempMonitoring" ? "active" : ""
+                }`}
+              >
+                <Link class="nav-link" to="/TempMonitoring" className={styles.navbarlinks}>
+                Temperature
+                Monitoring
+                </Link>
+              </li>         
+              <li
+                class={`nav-item  ${
                   props.location.pathname === "/DeliveredVaccine" ? "active" : ""
                 }`}
               >
@@ -28,16 +38,7 @@ function DtrNavbar(props) {
                 DeliveredVaccine
                   <span class="sr-only">(current)</span>
                 </Link>
-              </li>
-              {/* <li
-                class={`nav-item  ${
-                  props.location.pathname === "/Rules" ? "active" : ""
-                }`}
-              >
-                <Link class="nav-link" to="/Rules" className={styles.navbarlinks}>
-                RegisterRules
-                </Link>
-              </li>               */}
+              </li>     
             </ul>
           </div>
         </div>

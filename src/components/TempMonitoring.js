@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
-import bg from './Assets/7.png';
-import  MfrNavbar  from "./MfrNavbar";
-import './App.css';
-//import styles from './App.module.css';
+import Web3 from 'web3';
+import bg from './Assets/3.png';
+import  DtrNavbar  from "./DtrNavbar";
 import { LoopingRhombusesSpinner } from 'react-epic-spinners';
 import VaxiChain from '../abis/VaxiChain.json';
-//import {  } from 'react-bootstrap'
-import Web3 from 'web3';
-//import './App.module.css';
-//import logoonly from './logoonly.png';
-import './Vaccine';
-import './Rules';
 
-class Manufacture extends Component {
+class ColdChain extends Component {
 
 
   async componentWillMount() {
@@ -49,9 +42,9 @@ class Manufacture extends Component {
       // this.setState({ network: "ETH" })
       // this.setState({ account: accounts[0] })
 
-      //const manufactureCount = await vaxichain.methods.manufactureCount().call()
-      //this.setState({ manufactureCount })
-      // console.log(this.state.manufactureCount)
+      // const manufactureCount = await vaxichain.methods.manufactureCount().call()
+      // this.setState({ manufactureCount })
+
       // for (var i = 0; i < manufactureCount; i++) {
       //   const manufacture = await vaxichain.methods.manufacture(i).call()
       //   if(manufacture.isCreated){
@@ -60,19 +53,9 @@ class Manufacture extends Component {
       //       this.setState({
       //         validManufacture: true
       //       })
-        //    }
-        // }
+      //     }
+      //  }
 
-
-    //   var Manufacture = []
-    //   var manufactureCount = await this.state.vaxichain.methods.manufactureCount(this.state.account).call()
-    //   for(var i=0;i < manufactureCount; i++)
-    //   {
-    //     var m =  await this.state.vaxichain.methods.getManufacture(this.state.account,i).call()
-    //     Manufacture.push(m)
-    //   }
-    //   this.setState({ Manufacture })
-    
     
      } 
     else
@@ -81,9 +64,9 @@ class Manufacture extends Component {
     }
   }
 
-  AddManufacture(licenceNo,name,location) {
+  tracking(vaccine_id,temp) {
     this.setState({ loading: true })
-    this.state.vaxichain.methods.AddManufacture(licenceNo,name,location).send({ from: this.state.account })
+    this.state.vaxichain.methods.tracking(vaccine_id,temp).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({loading: false })
     })
@@ -96,22 +79,18 @@ class Manufacture extends Component {
       network: 'ETH',
       vaxichain: null,
       loading: false,
-      //validManufacture: false,
-      manufactureCount:0,
-      manufacture: []
     }
 
-  this.AddManufacture = this.AddManufacture.bind(this)
+  this.tracking = this.tracking.bind(this)
 
   }
 
 
   render() {
-
     return (
       <div style={{backgroundImage: "url(" + bg + ")", height: "100%", backgroundPosition: "bottom", 
       backgroundSize: "cover", backgroundRepeat: 'no-repeat', resizeMode: 'cover', textAlign: "center"}}>
-        <MfrNavbar color="#"/>    
+        <DtrNavbar color="#"/>    
       
       { this.state.loading 
       ? 
@@ -125,54 +104,45 @@ class Manufacture extends Component {
           </div>
       :
 
-      <div id="content" style={{width:800}} >
-        <h1 style={{padding:40,width:650,paddingLeft:200}}> Register Manufacture </h1>
+
+      <div id="content" style={{width:650, paddingLeft:530}}>
+        <h1 style={{padding:40,width:750,paddingLeft:120}}>Temperature Monitoring</h1>
         <form onSubmit={(event) => {
           event.preventDefault()
-          const licenceNo = this.licenceNo.value
-          const  name = this.name.value
-          const  location = this.location.value
-          //const price = window.web3.utils.toWei(this.productPrice.value.toString(), 'Ether')
-          this.AddManufacture(licenceNo, name, location)
+          const vaccine_id = this.vaccine_id.value
+          const temp = this.temp.value
+          
+          this.tracking(vaccine_id,temp)
+
         }}>
-
-          <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}} >
-            <input
-              id="licenceNo"
-              type="text"
-              ref={(input) => { this.licenceNo = input }}
-              className="form-control"
-              placeholder="licenceNo"
-              required />
-          </div>
-
-          <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}} >
-            <input
-              id="name"
-              type="text"
-              ref={(input) => { this.name = input }}
-              className="form-control"
-              placeholder="Manufacture name"
-              required />
-          </div>
-
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
             <input
-              id="location"
+              id="vaccine_id"
               type="text"
-              ref={(input) => { this.location = input }}
+              ref={(input) => { this.vaccine_id = input }}
               className="form-control"
-              placeholder="location"
+              placeholder="Vaccine ID"
               required />
-          </div >
-          
-          <button type="submit" className="btn btn-primary" style={{width:150}}  >Register</button>
+          </div>
+          <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
+            <input
+              id="temp"
+              type="text"
+              ref={(input) => { this.temp = input }}
+              className="form-control"
+              placeholder="Current Temperature"
+              required />
+          </div>
+             
+          <div className="buttn"  style={{width:650,paddingLeft:170}}>
+          <button type="submit" className="btn btn-primary"  style={{width:150}}>Submit</button>
+          </div>
         </form>
       </div>
-      }
-      </div>  
+       }
+      </div>
     );
   }
 }
 
-export default Manufacture;
+export default ColdChain;

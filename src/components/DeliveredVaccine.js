@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import bg from './Assets/3.png';
-import  VcNavbar  from "./VcNavbar";
+import bg from './Assets/11.png';
+import  DtrNavbar  from "./DtrNavbar";
 import { LoopingRhombusesSpinner } from 'react-epic-spinners';
 import VaxiChain from '../abis/VaxiChain.json';
 
@@ -103,7 +103,7 @@ class DeliveredVaccine extends Component {
     return (
       <div style={{backgroundImage: "url(" + bg + ")", height: "100%", backgroundPosition: "bottom", 
       backgroundSize: "cover", backgroundRepeat: 'no-repeat', resizeMode: 'cover', textAlign: "center"}}>
-        <VcNavbar color="#"/>    
+        <DtrNavbar color="#"/>    
       
       { this.state.loading 
       ? 

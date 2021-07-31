@@ -74,8 +74,7 @@ class Distributor extends Component {
     this.setState({ loading: true })
     this.state.vaxichain.methods.RegisterDistributor(dlicenceNo, dname).send({ from: this.state.account })
     .once('receipt', (receipt) => {
-      this.setState({ loading: false })
-      console.log(this.state.loading)
+      this.setState({ loading: false })     
     })
   }
 
@@ -84,11 +83,11 @@ class Distributor extends Component {
     this.state = {
       account: '',
       network: 'ETH',
-      //vaxichain: null,
+      vaxichain: null,
       loading: false,
       //validManufacture: false,
       distributorCount:0,
-      Distributor: []
+      distributor: []
     }
 
   this.RegisterDistributor = this.RegisterDistributor.bind(this)

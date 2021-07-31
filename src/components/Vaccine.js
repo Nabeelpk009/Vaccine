@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Web3 from 'web3';
-import bg from './Assets/3.png';
+import bg from './Assets/10.png';
 import  MfrNavbar  from "./MfrNavbar";
 import { LoopingRhombusesSpinner } from 'react-epic-spinners';
 import VaxiChain from '../abis/VaxiChain.json';
@@ -74,10 +74,11 @@ class Vaccine extends Component {
     }
   }
 
-  ManuFacturedVaccine(vaccine_id, name, vails, expdate) {
+  ManuFacturedVaccine(vaccine_id, name, vails, manufaturedDate) {
     this.setState({ loading: true })
-    this.state.vaxichain.methods.ManuFacturedVaccine(vaccine_id, name, vails, expdate).send({ from: this.state.account })
+    this.state.vaxichain.methods.ManuFacturedVaccine(vaccine_id, name, vails, manufaturedDate,0,"",0,"",0).send({ from: this.state.account })
     .once('receipt', (receipt) => {
+      console.log(receipt)
       this.setState({loading: false })
     })
   }
@@ -125,9 +126,9 @@ class Vaccine extends Component {
           const vaccine_id = this.vaccine_id.value
           const name = this.name.value
           const vails = this.vails.value
-          const expdate = this.expdate.value
+          const manufaturedDate = this.manufaturedDate.value
           
-          this.ManuFacturedVaccine(vaccine_id, name, vails, expdate)
+          this.ManuFacturedVaccine(vaccine_id, name, vails, manufaturedDate,0,"",0,"",0)
 
         }}>
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
@@ -159,11 +160,11 @@ class Vaccine extends Component {
           </div>
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
             <input
-              id="expdate"
+              id="manufaturedDate"
               type="text"
-              ref={(input) => { this.expdate = input }}
+              ref={(input) => { this.manufaturedDate = input }}
               className="form-control"
-              placeholder="Expiry Date"
+              placeholder="Manufatured Date"
               required />
           </div>
           <div className="buttn"  style={{width:650,paddingLeft:170}}>

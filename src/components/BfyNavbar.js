@@ -19,16 +19,16 @@ function BfyNavbar(props) {
                   <span class="sr-only">(current)</span>
                 </Link>
               </li>
-              {/* <li
+              <li
                 class={`nav-item  ${
-                  props.location.pathname === "/Vaccine" ? "active" : ""
+                  props.location.pathname === "/Tracking" ? "active" : ""
                 }`}
               >
-                <Link class="nav-link" to="/Vaccine" className={styles.navbarlinks}>
-                RegisterVaccine
+                <Link class="nav-link" to="/Tracking" className={styles.navbarlinks}>
+                TrackVaccine
                   <span class="sr-only">(current)</span>
                 </Link>
-              </li> */}
+              </li>
               <li
                 class={`nav-item  ${
                   props.location.pathname === "/SideEffects" ? "active" : ""

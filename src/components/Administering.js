@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import bg from './Assets/5.png';
+import bg from './Assets/8.png';
 import  DrNavbar  from "./DrNavbar";
 import VaxiChain from '../abis/VaxiChain.json';
 import Web3 from 'web3';
@@ -70,9 +70,9 @@ class Administering extends Component {
        }
     }
   
-    Vaccinated(AdharID, doctorID, vaccinated_date, vaccine_center) {
+    Vaccinated(adharID, doctorID, vaccinated_date, vaccine_center) {
       this.setState({ loading: true })
-      this.state.vaxichain.methods.Vaccinated(AdharID, doctorID, vaccinated_date, vaccine_center).send({ from: this.state.account })
+      this.state.vaxichain.methods.Vaccinated(adharID, doctorID, vaccinated_date,vaccine_center).send({ from: this.state.account })
       .once('receipt', (receipt) => {
         this.setState({ loading: false })
         })
@@ -117,17 +117,18 @@ class Administering extends Component {
         <h1 style={{padding:40,width:750,paddingLeft:115}}>Vaccination Details</h1>
         <form onSubmit={(event) => {
           event.preventDefault()
-          const AdharID = this.AdharID.value
+          const adharID = this.adharID.value
           const  doctorID = this.doctorID.value
           const  vaccinated_date = this.vaccinated_date.value
           const  vaccine_center = this.vaccine_center.value
-          this.Vaccinated(AdharID, doctorID, vaccinated_date, vaccine_center)
+
+          this.Vaccinated(adharID, doctorID, vaccinated_date, vaccine_center)
         }}>
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
             <input
-              id="AdharID"
+              id="adharID"
               type="text"
-              ref={(input) => { this.AdharID = input }}
+              ref={(input) => { this.adharID = input }}
               className="form-control"
               placeholder="Beneficiary Adhar ID"
               required />

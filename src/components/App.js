@@ -12,7 +12,8 @@ import ArrivedVaccine from './ArrivedVaccine';
 import DeliveredVaccine from './DeliveredVaccine';
 import SideEffects from './SideEffects';
 import Administering from './Administering';
-
+import Tracking from './Tracking';
+import TempMonitoring from './TempMonitoring';
 
 
 class App extends Component {
@@ -35,7 +36,9 @@ class App extends Component {
             <Route path="/ArrivedVaccine" exact component={() => <ArrivedVaccine />} />
             <Route path="/SideEffects" exact component={() => <SideEffects />} />  
             <Route path="/DeliveredVaccine" exact component={() => <DeliveredVaccine />} />
-            <Route path="/Administering" exact component={() => <Administering />} />           
+            <Route path="/Administering" exact component={() => <Administering />} />  
+            <Route path="/Tracking" exact component={() => <Tracking />} />         
+            <Route path="/TempMonitoring" exact component={() => <TempMonitoring />} />
 
           </Switch>
         </Router>

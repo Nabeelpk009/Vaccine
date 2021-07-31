@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import bg from './Assets/4.png';
 import  BfyNavbar  from "./BfyNavbar";
-import { LoopingRhombusesSpinner } from 'react-epic-spinners';
+//import { LoopingRhombusesSpinner } from 'react-epic-spinners';
 import VaxiChain from '../abis/VaxiChain.json'
 import Web3 from 'web3';
 
 
-class Beneficiary extends Component {
+class tracking extends Component {
 
   async componentWillMount() {
     await this.loadWeb3()
@@ -35,22 +35,33 @@ class Beneficiary extends Component {
     if(networkData) {
       const vaxichain = web3.eth.Contract(VaxiChain.abi, networkData.address)
       this.setState({ vaxichain })
-      this.setState({ loading: false})      
-    } 
+      this.setState({ loading: false})    
+    
+     const vaccine = await vaxichain.methods.vaccine("01").call()
+     console.log(vaccine)
+      // const manufactureCount = await vaxichain.methods.manufactureCount().call()
+      //   this.setState({ manufactureCount })
+
+      //   for (i = 0; i < manufactureCount; i++) {
+         // const Manufacture = await vaxichain.methods.manufacture().call()
+          // if(Manufacture.isCreated){
+          //  this.setState({ Manufacture })
+          // console.log(this.state.Manufacture)
+          // if(appointment.citizen === this.state.account){
+          //   if(!appointment.vaccinated){
+          //     this.setState({
+          //       appointments: [...this.state.appointments, appointment]
+          //     })
+          //  }
+          }
+     
     else
      {
       window.alert('VaxiChain contract not deployed to detected network.')
     }
   }
 
-  AddBeneficiary(name, age, gender, adharID) {
-    this.setState({ loading: true })
-    this.state.vaxichain.methods.AddBeneficiary(name, age, gender, adharID,0,"","",false).send({ from: this.state.account })
-    .once('receipt', (receipt) => {
-      this.setState({ loading: false })
-      console.log(this.state.loading)
-    })
-  }
+  
 
   constructor(props) {
     super(props)
@@ -60,23 +71,29 @@ class Beneficiary extends Component {
       vaxichain: null,
       loading: false,
       //validManufacture: false,
-      beneficiaryCount:0,
-      Beneficiary: []
+      manufactureCount:0,
+      Manufacture: []
     }
 
- 
-
   }
-
 
 
   render() {
     return (
       <div style={{backgroundImage: "url(" + bg + ")", height: "100%", backgroundPosition: "bottom", 
       backgroundSize: "cover", backgroundRepeat: 'no-repeat', resizeMode: 'cover', textAlign: "center"}}>
-        <BfyNavbar color="#"/>    
-      
-      { this.state.loading 
+        <BfyNavbar color="#"/>   
+        {/* { this.state.Manufacture.map((Manufacture, key) => {
+                return(
+                  <div className="card mb-3" key={key} >
+                    <div className="card-header">
+                      <small className="text-muted"> Date:{(Manufacture.licenceNO.toString())}{(Manufacture.name.toString())} {(Manufacture.location.toString())}</small>
+
+                    </div>
+                  </div>
+                )
+              })} */}
+      {/* { this.state.loading 
       ? 
         <div className="center mt-19" style={{padding:40,width:650,paddingLeft:570}} >
             <LoopingRhombusesSpinner
@@ -86,55 +103,25 @@ class Beneficiary extends Component {
             />
             <div style={{paddingTop: 10, textAlign: "center", fontSize: 12, fontWeight: 600, color: "black"}}>Processing...</div>
           </div>
-      :
+      : */}
 
       <div id="content" style={{width:800}}>
-        <h1 style={{padding:40,width:650,paddingLeft:200}}>Register Beneficiary</h1>
+        <h1 style={{padding:40,width:650,paddingLeft:200}}>Track Vaccine</h1>
         <form onSubmit={(event) => {
           event.preventDefault()
-          const name = this.name.value
-          const age = this.age.value
-          const gender = this.gender.value
-          const adharID = this.adharID.value
-          this.AddBeneficiary(name, age, gender, adharID,0,"","",false)
+          const vaccine_id = this.vaccine_id.value
+          this.TrackVaccine(vaccine_id)
         }}>
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}> 
             <input
-              id="name"
+              id="vaccine_id"
               type="text"
-              ref={(input) => { this.name = input }}
+              ref={(input) => { this.vaccine_id = input }}
               className="form-control"
-              placeholder="Beneficiary name"
+              placeholder="Vaccine ID"
               required />
           </div>
-          <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
-            <input
-              id="age"
-              type="text"
-              ref={(input) => { this.age = input }}
-              className="form-control"
-              placeholder="age"
-              required />
-          </div>
-          <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}} >
-            <input
-              id="gender"
-              type="text"
-              ref={(input) => { this.gender = input }}
-              className="form-control"
-              placeholder="gender"
-              required />
-          </div>
-          <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
-            <input
-              id="adharID"
-              type="text"
-              ref={(input) => { this.adharID = input }}
-              className="form-control"
-              placeholder="AdharID"
-              required />
-          </div>
-          <button type="submit" className="btn btn-primary"style={{width:150}} >Register</button>
+          <button type="submit" className="btn btn-primary"style={{width:150}} >Track</button>
         </form>
       </div>
       }
@@ -142,5 +129,4 @@ class Beneficiary extends Component {
     );
   }
 }
-
-export default Beneficiary;
+export default tracking;

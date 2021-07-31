@@ -73,9 +73,9 @@ class Rules extends Component {
     }
   }
 
-  AddRules(id, min_temp, max_temp, doses, manufaturedDate) {
+  AddRules(id, min_temp, max_temp, doses, expdate) {
     this.setState({ loading: true })
-    this.state.vaxichain.methods.AddRules(id, min_temp, max_temp, doses, manufaturedDate).send({ from: this.state.account })
+    this.state.vaxichain.methods.AddRules(id, min_temp, max_temp, doses, expdate).send({ from: this.state.account })
     .once('receipt', (receipt) => {
       this.setState({loading: false })
     })
@@ -121,8 +121,8 @@ class Rules extends Component {
           const  min_temp = this.min_temp.value
           const  max_temp = this.max_temp.value
           const  doses = this.doses.value
-          const  manufaturedDate = this.manufaturedDate.value
-          this.AddRules(vaccine_id, min_temp, max_temp, doses,manufaturedDate)
+          const  expdate = this.expdate.value
+          this.AddRules(vaccine_id, min_temp, max_temp, doses,expdate)
         }}>
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
             <input
@@ -162,11 +162,11 @@ class Rules extends Component {
           </div>
           <div className="form-group mr-sm-2" style={{width:650,paddingLeft:170}}>
             <input
-              id="manufaturedDate"
+              id="expdate"
               type="text"
-              ref={(input) => { this.manufaturedDate= input }}
+              ref={(input) => { this.expdate= input }}
               className="form-control"
-              placeholder="Manufatured Date"
+              placeholder="Expiration Date"
               required />
           </div>
           

@@ -19,6 +19,16 @@ function DrNavbar(props) {
                   <span class="sr-only">(current)</span>
                 </Link>
               </li>
+              {/* <li
+                class={`nav-item  ${
+                  props.location.pathname === "/Tracking" ? "active" : ""
+                }`}
+              >
+                <Link class="nav-link" to="/Tracking" className={styles.navbarlinks}>
+                TrackVaccine
+                  <span class="sr-only">(current)</span>
+                </Link>
+              </li> */}
               <li
                 class={`nav-item  ${
                   props.location.pathname === "/Administering" ? "active" : ""
